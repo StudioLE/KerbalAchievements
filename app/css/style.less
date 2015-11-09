@@ -1,0 +1,219 @@
+@import "../bower_components/bootstrap/less/mixins.less";
+@import "../bower_components/bootstrap/less/variables.less";
+
+@blue: rgb(70,115,244);
+
+@bg: #eee;
+@body: #111;
+
+@nav_bg: @blue;
+@nav_bg_hover: darken(@nav_bg, 3%);
+@nav_bg_active: darken(@nav_bg, 6%);
+@nav: lighten(@nav_bg, 15%);
+@nav_hover: darken(@nav_bg, 30%);
+@nav_active: @nav;
+@nav_fade: darken(@nav_bg, 17%);
+@nav_brand: #fff;
+@nav_tag: lighten(@nav_bg, 10%);
+
+@link: @nav;
+@link_hover: @nav_hover;
+
+/*****************************************************************
+*
+* Style defaults
+*
+******************************************************************/
+
+body {
+  background: @nav_bg;
+}
+
+::selection {
+  background: rgba(227, 80, 80, 0.5);
+  color: #fff;
+}
+
+a {
+  color: @link;
+}
+
+a:hover {
+  color: @link_hover;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 25px 0;
+  color: @body;
+}
+
+h2, h3, h4, h5 {
+  margin-bottom: 10px;
+}
+
+h1 a.btn {
+  margin-left: 20px;
+}
+
+/*****************************************************************
+*
+* Page
+*
+******************************************************************/
+
+.main {
+  padding: 20px 0 50px;
+  background: @bg;
+}
+
+input[type="file"] {
+  margin: 50px 0;
+}
+
+/*****************************************************************
+*
+* Nav
+*
+******************************************************************/
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar-default {
+  background: @nav_bg;
+  border: none;
+}
+
+.navbar-default .navbar-nav>li>a {
+  background: @nav_bg;
+  color: @nav;
+}
+
+.navbar-default .navbar-nav>li.active>a {
+  background: @nav_bg_active;
+  color: @nav_active;
+
+  &:hover, &:focus {
+    background: @nav_bg_active;
+    color: @nav_active;
+  }
+}
+
+.navbar-default .navbar-nav>li>a {
+  &:hover, &:focus {
+    background: @nav_bg_hover;
+    color: @nav_hover;
+  }
+}
+
+.navbar-brand, .nav>li>a {
+  padding: 70px 40px 30px;
+}
+.nav.navbar-right>li>a {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.navbar-nav:not(.navbar-right)>li>a:before, 
+.navbar-nav>li>a span {
+  display: block;
+  color: @nav_fade;
+  font-size: 34px;
+  line-height: 30px;
+  text-align: center;
+}
+
+.navbar-nav>li>a span {
+  font-size: 28px;
+}
+
+.navbar-default .navbar-brand {
+  color: @nav_tag;
+
+  &:hover, &:focus {
+    color: @nav_hover;
+  }
+}
+
+.navbar-brand span {
+  color: @nav_brand;
+  display: block;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+}
+
+// Steps counter
+// .nav {
+//   counter-reset: steps-counter;
+// }
+
+// .navbar-nav:not(.navbar-right)>li>a:before {
+//   content: counter(steps-counter);
+//   counter-increment: steps-counter;
+// }
+
+/*****************************************************************
+*
+* Angular
+*
+******************************************************************/
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
+/*****************************************************************
+*
+* Table
+*
+******************************************************************/
+
+tr.removed {
+  text-decoration: line-through;
+}
+
+/*****************************************************************
+*
+* X-editable
+*
+******************************************************************/
+
+.editable-click, a.editable-click {
+  border-bottom: none;
+}
+
+.label.editable-click, a.label.editable-click {
+  color: #fff;
+  &:hover {
+    color: #333;
+  }
+}
+
+/*****************************************************************
+*
+* Foot
+*
+******************************************************************/
+
+.foot {
+  padding-bottom: 80px;
+  background: @nav_bg;
+
+  .credit {
+    clear: both;
+    display: block;
+    position: relative;
+    top: 23px;
+    left: 60px;
+  }
+
+  .icons {
+    margin-top: 70px;
+  }
+
+}

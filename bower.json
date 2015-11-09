@@ -1,0 +1,16 @@
+{
+  "name": "kerbal-achievements",
+  "description": "View a timeline of your Kerbal's achievements",
+  "version": "1.0.0-beta",
+  "homepage": "https://github.com/StudioLE/KerbalTimeline",
+  "license": "",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "angular-loader": "~1.4.0",
+    "angular-mocks": "~1.4.0",
+    "bootstrap": "~3.3.5",
+    "json-formatter": "https://github.com/mohsen1/json-formatter/archive/master.tar.gz#~0.4.0"
+  }
+}
