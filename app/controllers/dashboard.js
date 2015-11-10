@@ -23,45 +23,18 @@ angular.module('app.dashboard', ['ngRoute'])
 * DashboardCtrl controlller
 *
 ******************************************************************/
-.controller('DashboardCtrl', function($scope, $location, Data, Parse) {
+.controller('DashboardCtrl', function($scope, $location, Data, Events, Parse) {
 
   /**
    * Get data from local storage
    */
   var data = Data.get()
+  var events = Events.get()
   $scope.data = function() {
     return data
   }
-
-  $scope.dataIsSet = function() {
-    return Data.isset()
-  }
-
-  /**
-   * Send the current data to console
-   */
-  $scope.checkData = function() {
-    console.log($scope.data())
-  }
-
-  /**
-   * Update data model
-   *
-   * Called when a x-editable is saved
-   */
-  $scope.updateData = function() {
-    Data.set($scope.data())
-  }
-
-  /**
-   * Remove row
-   *
-   * Called when a x-editable is saved
-   */
-  $scope.removeRow = function(row) {
-    // Toggle remove
-    row.removed = ! row.removed
-    Data.set($scope.data())
+  $scope.events = function() {
+    return events
   }
 
   /**
