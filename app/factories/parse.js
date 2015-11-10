@@ -45,7 +45,8 @@ angular.module('app.parseFactory', [])
       // str = this.renameDuplicates(str, 'science')
 
       // Rename duplicate keys
-      str = str.replace(/(\t*")(SCENARIO)(":\s*\{)(\s*)("name": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
+      str = str.replace(/(\t*")(SCENARIO|KERBAL)(":\s*\{)(\s*)("name": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
+      str = str.replace(/(\t*")(VESSEL)(":\s*\{)(\s*)("pid": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
 
 
 
