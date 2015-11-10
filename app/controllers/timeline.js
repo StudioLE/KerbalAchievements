@@ -27,6 +27,7 @@ angular.module('app.timeline', ['ngRoute'])
    */
   if( ! Events.isset()) {
     Parse.progress(Data.get().GAME.ProgressTracking.Progress)
+    Parse.vessel(Data.get().GAME.FLIGHTSTATE)
   }
 
   /**
@@ -39,6 +40,7 @@ angular.module('app.timeline', ['ngRoute'])
   $scope.rerender = function() {
     Events.unset()
     Parse.progress(Data.get().GAME.ProgressTracking.Progress)
+    Parse.vessel(Data.get().GAME.FLIGHTSTATE)
   }
 
   var timeline_json = {

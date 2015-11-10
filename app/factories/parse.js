@@ -71,15 +71,15 @@ angular.module('app.parseFactory', [])
 
     progressObject: function(obj, key) {
       var Parse = this
-      var title = key
+      var title = _.startCase(key)
       var icon = 'kerbin'
       if(obj.body) {
-        title = obj.body + ' ' + key
+        title = obj.body + ' ' + title
         icon = obj.body
       }
       return {
         media: {
-          url: '/img/' + icon + '.jpg',
+          url: '/img/' + icon.toLowerCase() + '.jpg',
         //   "caption": "",
         //   "credit": ""
         },
@@ -98,19 +98,79 @@ angular.module('app.parseFactory', [])
     progressText: function(obj) {
       var output = ''
       if(obj.vessel) {
-        output = 'Vessel <strong>' + obj.vessel.name + '</strong>'
+        output += '<dl><dt>Vessel</dt> <dd>' + obj.vessel.name + '</dd></dl>'
       }
       if(obj.crew) {
-        output = 'Crew <strong>' + obj.crew.crews + '</strong>'
+        output += '<dl><dt>Crew</dt> <dd>' + obj.crew.crews + '</dd></dl>'
       }
       if(obj.body) {
-        output = 'Body <strong>' + obj.body + '</strong>'
+        output += '<dl><dt>Body</dt> <dd>' + obj.body + '</dd></dl>'
       }
       if(obj.record) {
-        output = 'Record <strong>' + obj.record + '</strong>'
+        output += '<dl><dt>Record</dt> <dd>' + obj.record + '</dd></dl>'
       }
+      if( ! output) output = '&nbsp;'
       return output
       // return JSON.stringify(obj)
+    },
+
+    vessel: function(data, body) {
+      var Parse = this
+
+      _.each(data, function(obj, key) {
+        if(obj.type && obj.type != 'Debris') {
+          Events.add(Parse.vesselObject(obj, key))
+        }
+      })
+    },
+
+    vesselObject: function(obj, key) {
+      var Parse = this
+      var title = obj.name + ' Launched'
+      var icon = obj.type.toLowerCase()
+      if(obj.type == 'Flag') {
+        title = obj.name + ' Flag Planted'
+      }
+      else if(obj.type == 'SpaceObject') {
+        title = obj.name + ' Tracked'
+      }
+      return {
+        media: {
+          url: '/img/' + icon + '.png',
+        //   "caption": "",
+        //   "credit": ""
+        },
+        start_date: {
+          year: _.parseInt(obj.lct / 3600) // Convert to Kerbin hours
+        },
+        display_date: Parse.date(obj.lct),
+        text: {
+          headline: title,
+          text: Parse.vesselText(obj)
+        },
+        // group: obj.group
+      }
+    },
+
+    vesselText: function(obj, key) {
+      var output = ''
+      console.log(obj.lct + obj.met)
+      if(obj.pid) {
+        output += '<dl style="display: none;"><dt>id<dt/> <dd>' + obj.pid + '</dd></dl>'
+      }
+      if(obj.sit && obj.type != 'Flag') {
+        output += '<dl><dt>Situation<dt/> <dd>' + _.capitalize(obj.sit.toLowerCase()) + '</dd></dl>'
+      }
+      if(obj.landed && obj.type != 'Flag') {
+        output += '<dl><dt>Landed at<dt/> <dd>' + _.startCase(obj.landedAt) + '</dd></dl>'
+      }
+      if(obj.splashed && obj.type != 'Flag') {
+        output += '<dl><dt>Splashed at<dt/> <dd>' + _.startCase(obj.splashedAt) + '</dd></dl>'
+      }
+      if(obj.type) {
+        output += '<dl><dt>Type<dt/> <dd>' + obj.type + '</dd></dl>'
+      }
+      return output
     },
 
     date: function(timestamp) {
