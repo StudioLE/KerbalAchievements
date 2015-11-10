@@ -72,23 +72,45 @@ angular.module('app.parseFactory', [])
     progressObject: function(obj, key) {
       var Parse = this
       var title = key
-      if(obj.body) title = obj.body + ' ' + key
+      var icon = 'kerbin'
+      if(obj.body) {
+        title = obj.body + ' ' + key
+        icon = obj.body
+      }
       return {
-        // "media": {
-        //   "url": "/img/Mun.jpg",
+        media: {
+          url: '/img/' + icon + '.jpg',
         //   "caption": "",
         //   "credit": ""
-        // },
+        },
         start_date: {
           year: _.parseInt(obj.completed / 3600) // Convert to Kerbin hours
         },
         display_date: Parse.date(obj.completed),
         text: {
           headline: title,
-          text: JSON.stringify(obj)
+          text: Parse.progressText(obj)
         },
         // group: obj.group
       }
+    },
+
+    progressText: function(obj) {
+      var output = ''
+      if(obj.vessel) {
+        output = 'Vessel <strong>' + obj.vessel.name + '</strong>'
+      }
+      if(obj.crew) {
+        output = 'Crew <strong>' + obj.crew.crews + '</strong>'
+      }
+      if(obj.body) {
+        output = 'Body <strong>' + obj.body + '</strong>'
+      }
+      if(obj.record) {
+        output = 'Record <strong>' + obj.record + '</strong>'
+      }
+      return output
+      // return JSON.stringify(obj)
     },
 
     date: function(timestamp) {

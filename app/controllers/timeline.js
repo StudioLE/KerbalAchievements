@@ -47,7 +47,9 @@ angular.module('app.timeline', ['ngRoute'])
   }
   var timeline_options = {
     relative_date: false,
-    timenav_height: 500
+    timenav_height: 500,
+    default_bg_color: 'black',
+    duration: 500
   }
   window.timeline = new TL.Timeline('timeline-embed', timeline_json, timeline_options)
 

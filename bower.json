@@ -11,6 +11,6 @@
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "bootstrap": "~3.3.5",
-    "json-formatter": "https://github.com/mohsen1/json-formatter/archive/master.tar.gz#~0.4.0"
+    "json-formatter": "~0.4.0"
   }
 }
