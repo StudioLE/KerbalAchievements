@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.dashboard', ['ngRoute'])
+angular.module('app.import', ['ngRoute'])
 
 /*****************************************************************
 *
@@ -10,32 +10,16 @@ angular.module('app.dashboard', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/import', {
     templateUrl: 'views/import.html',
-    controller: 'DashboardCtrl'
-  })
-  $routeProvider.when('/review', {
-    templateUrl: 'views/review.html',
-    controller: 'DashboardCtrl'
+    controller: 'ImportCtrl'
   })
 }])
 
 /*****************************************************************
 *
-* DashboardCtrl controlller
+* ImportCtrl controlller
 *
 ******************************************************************/
-.controller('DashboardCtrl', function($scope, $location, Data, Events, Parse) {
-
-  /**
-   * Get data from local storage
-   */
-  var data = Data.get()
-  var events = Events.get()
-  $scope.data = function() {
-    return data
-  }
-  $scope.events = function() {
-    return events
-  }
+.controller('ImportCtrl', function($scope, $location, Data, Parse) {
 
   /**
    * Import & parse SFS file
@@ -53,11 +37,6 @@ angular.module('app.dashboard', ['ngRoute'])
 
       sfs = Parse.sfsToJSON(reader.result)
       sfs = JSON.parse(sfs)
-
-      // Add to the local scope so the user gets immediate feedback
-      $scope.$apply(function() {
-          $scope.results = true
-      })
 
       // // Store data in Local Storage
       Data.set(sfs)

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.pages', ['ngRoute'])
+angular.module('app.static', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -10,11 +10,11 @@ angular.module('app.pages', ['ngRoute'])
   })
   $routeProvider.when('/404', {
     templateUrl: 'views/404.html',
-    controller: 'PageCtrl'
+    controller: 'StaticCtrl'
   })
 }])
 
-.controller('PageCtrl', function() {
+.controller('StaticCtrl', function() {
 })
 
 .controller('HomeCtrl', function(Data) {
