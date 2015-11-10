@@ -46,6 +46,7 @@ angular.module('app.dataFactory', [])
      * Data unset
      */
     unset: function() {
+      localStorageService.remove('events')
       return localStorageService.remove('data')
     }
   }

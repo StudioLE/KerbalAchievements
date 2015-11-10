@@ -8,15 +8,8 @@ angular.module('app.parseFactory', [])
 *
 ******************************************************************/
 .factory('Parse', function() {
-
-  var regex = {
-    date: /on (\d\d) (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i,
-    supermarkets: /(SAINSBURYS|tesco|co-op|waitrose|M&S)/i,
-    social: /(Inn|Pub|The Red Lion|LIBERTY BOUNDS|MILE CASTLE|EL MEXICANA|GLASS HOUSE|SCENARIO|THE ARCH CLIMBING|COUNTING HOUSE|Crosse Keys|ALL BAR ONE|METROPOLITAN)/i,
-    lunch: /(Subway|CLIFTON EXPRESS|NORTHUMBRIA UNIVER|MCDONALDS|NATIONAL TRUST|NORWICH CATERING|COSTA|THE PASTY SHOP|eat|the restaurant cha|PRET A MANGER|FINE BURGER COMPAN|CH&CO CATERING) /i
-  }
-
   return {
+
     // Convert SFS string to JSON
     sfsToJSON: function(str) {
 
@@ -48,8 +41,6 @@ angular.module('app.parseFactory', [])
       str = str.replace(/(\t*")(SCENARIO|KERBAL)(":\s*\{)(\s*)("name": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
       str = str.replace(/(\t*")(VESSEL)(":\s*\{)(\s*)("pid": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
 
-
-
       console.log(str)
 
       return str
@@ -61,6 +52,11 @@ angular.module('app.parseFactory', [])
           return '"' + key + i++ + '":' 
       })
       return str
+    },
+
+    extractAchievements: function(data) {
+      var events = data.GAME.ProgressTracking.Progress
+      return events
     }
 
   }

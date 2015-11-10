@@ -14,7 +14,9 @@ angular.module('app', [
   'app.config',
   'app.dashboard',
   'app.pages',
+  'app.timeline',
   'app.dataFactory',
+  'app.eventsFactory',
   'app.parseFactory'
 ])
 

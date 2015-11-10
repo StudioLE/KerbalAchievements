@@ -12,10 +12,6 @@ angular.module('app.dashboard', ['ngRoute'])
     templateUrl: 'views/import.html',
     controller: 'DashboardCtrl'
   })
-  $routeProvider.when('/timeline', {
-    templateUrl: 'views/timeline.html',
-    controller: 'DashboardCtrl'
-  })
   $routeProvider.when('/review', {
     templateUrl: 'views/review.html',
     controller: 'DashboardCtrl'
