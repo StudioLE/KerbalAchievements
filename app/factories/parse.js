@@ -154,21 +154,20 @@ angular.module('app.parseFactory', [])
 
     vesselText: function(obj, key) {
       var output = ''
-      console.log(obj.lct + obj.met)
       if(obj.pid) {
         output += '<dl style="display: none;"><dt>id<dt/> <dd>' + obj.pid + '</dd></dl>'
       }
-      if(obj.sit && obj.type != 'Flag') {
-        output += '<dl><dt>Situation<dt/> <dd>' + _.capitalize(obj.sit.toLowerCase()) + '</dd></dl>'
-      }
-      if(obj.landed && obj.type != 'Flag') {
-        output += '<dl><dt>Landed at<dt/> <dd>' + _.startCase(obj.landedAt) + '</dd></dl>'
+      if(obj.type) {
+        output += '<dl><dt>Type<dt/> <dd>' + _.startCase(obj.type) + '</dd></dl>'
       }
       if(obj.splashed && obj.type != 'Flag') {
         output += '<dl><dt>Splashed at<dt/> <dd>' + _.startCase(obj.splashedAt) + '</dd></dl>'
       }
-      if(obj.type) {
-        output += '<dl><dt>Type<dt/> <dd>' + obj.type + '</dd></dl>'
+      if(obj.sit && obj.type != 'Flag') {
+        output += '<dl><dt>Situation<dt/> <dd>' + _.capitalize(_.startCase(obj.sit.toLowerCase())) + '</dd></dl>'
+      }
+      if(obj.landedAt && obj.type != 'Flag') {
+        output += '<dl><dt>Landed at<dt/> <dd>' + _.startCase(obj.landedAt) + '</dd></dl>'
       }
       return output
     },
