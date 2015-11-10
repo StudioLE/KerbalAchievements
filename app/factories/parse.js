@@ -7,7 +7,7 @@ angular.module('app.parseFactory', [])
 * User factory
 *
 ******************************************************************/
-.factory('Parse', function() {
+.factory('Parse', function(Events) {
   return {
 
     // Convert SFS string to JSON
@@ -41,8 +41,6 @@ angular.module('app.parseFactory', [])
       str = str.replace(/(\t*")(SCENARIO|KERBAL)(":\s*\{)(\s*)("name": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
       str = str.replace(/(\t*")(VESSEL)(":\s*\{)(\s*)("pid": ")(.*)(",$)/gmi, '$1$6$3$4$5$6$7')
 
-      console.log(str)
-
       return str
     },
 
@@ -54,9 +52,66 @@ angular.module('app.parseFactory', [])
       return str
     },
 
-    extractAchievements: function(data) {
-      var events = data.GAME.ProgressTracking.Progress
-      return events
+    progress: function(data, body) {
+      var Parse = this
+
+      _.each(data, function(obj, key) {
+        if(obj.completed) {
+          if(body) {
+            obj.body = body
+            obj.group = body
+          }
+          Events.add(Parse.progressObject(obj, key))
+        }
+        else if(_.isObject(obj)) {
+          Parse.progress(obj, key)
+        }
+      })
+    },
+
+    progressObject: function(obj, key) {
+      var Parse = this
+      var title = key
+      if(obj.body) title = obj.body + ' ' + key
+      return {
+        // "media": {
+        //   "url": "/img/Mun.jpg",
+        //   "caption": "",
+        //   "credit": ""
+        // },
+        start_date: {
+          year: _.parseInt(obj.completed / 3600) // Convert to Kerbin hours
+        },
+        display_date: Parse.date(obj.completed),
+        text: {
+          headline: title,
+          text: JSON.stringify(obj)
+        },
+        // group: obj.group
+      }
+    },
+
+    date: function(timestamp) {
+      var output = ''
+      var secondsPer = {
+        year: 9201600, // 426 days per year
+        day: 21600, // 6 hours per day
+        hour: 3600, // 60 mins per hour
+        min: 60, // 60 seconds per min
+      }
+      var date = {}
+      // Calc is the value in seconds that we have already been accounted for
+      date.year = _.floor(timestamp / secondsPer.year)
+      var calc = (date.year * secondsPer.year)
+      date.day = _.floor((timestamp - calc) / secondsPer.day)
+      calc = calc + (date.day * secondsPer.day)
+      date.hour = _.floor((timestamp - calc) / secondsPer.hour)
+      calc = calc + (date.hour * secondsPer.hour)
+      date.min = _.floor((timestamp - calc) / secondsPer.min)
+      calc = calc + (date.min * secondsPer.min)
+      date.sec = _.floor(timestamp - calc)
+
+      return 'Year ' + date.year + ', Day ' + date.day + ', ' + _.padLeft(date.hour, 2, 0) + ':' + _.padLeft(date.min, 2, 0) + ''// + date.year + 's'
     }
 
   }

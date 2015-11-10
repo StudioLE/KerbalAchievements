@@ -7,7 +7,7 @@ angular.module('app.eventsFactory', [])
 * Events factory
 *
 ******************************************************************/
-.factory('Events', function(localStorageService, Data, Parse) {
+.factory('Events', function(localStorageService, Data) {
   return {
 
     /**
@@ -15,17 +15,8 @@ angular.module('app.eventsFactory', [])
      *
      * @return {Array} events
      */
-    get: function() {
-      if(this.isset()) {
-        return localStorageService.get('events')
-      }
-      else {
-        console.log('extracting')
-        var events = Parse.extractAchievements(Data.get())
-        this.set(events)
-        return this.get()
-      }
-      // console.log(events)
+    get: function(dev) {
+      return localStorageService.get('events')
     },
 
     /**
@@ -34,6 +25,20 @@ angular.module('app.eventsFactory', [])
      * @return {Array} events
      */
     set: function(events) {
+      return localStorageService.set('events', events)
+    },
+
+    /**
+     * Events add
+     *
+     * @return {Array} events
+     */
+    add: function(event) {
+      var events = []
+      if(this.isset()) {
+        events = events.concat(this.get())
+      }
+      events.push(event)
       return localStorageService.set('events', events)
     },
 
