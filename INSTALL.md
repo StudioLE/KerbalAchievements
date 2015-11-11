@@ -15,14 +15,17 @@ npm install
 
 Behind the scenes this will also call `bower install`.
 
-The app is now ready. To reach it you can either point your webserver to the directory:
+Now run the default gulp task to produce an up to date build
 
 ```
-KerbalAchievements/app
+gulp
 ```
 
-Or you run the bundled node dev server which will launch the app to `http://localhost:1337`
+Now point your websever to either the `build` or `src` directories.
+
+Or you run the bundled node server which will launch the app to `http://localhost:1337`
 
 ```
-npm start
+node cli server src
+node cli server build
 ```

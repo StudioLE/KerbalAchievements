@@ -9,14 +9,17 @@
 <title>Kerbal Achievements</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- build:vendor-css -->
 <link rel="stylesheet" href="bower_components/bootswatch-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="bower_components/json-formatter/dist/json-formatter.min.css">
 <link rel="stylesheet" href="bower_components/TimelineJS3/compiled/css/timeline.css">
-<link rel="stylesheet" href="css/style.css">
-<!-- <link rel="stylesheet/less" href="css/style.less">
+<!-- endbuild -->
+<!-- build:css -->
+<link rel="stylesheet/less" href="css/style.less">
 <script src="bower_components/less/dist/less.min.js"></script>
-</head> -->
+</head>
+<!-- endbuild -->
 <body>
 <nav class="navbar navbar-default">
   <div class="container">
@@ -54,6 +57,7 @@
   </div> <!-- .container -->
 </div> <!-- .foot -->
 
+<!-- build:vendor-js -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootswatch-dist/js/bootstrap.min.js"></script>
 <script src="bower_components/lodash/lodash.min.js"></script>
@@ -63,6 +67,8 @@
 <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="bower_components/json-formatter/dist/json-formatter.min.js"></script>
 <script src="bower_components/TimelineJS3/compiled/js/timeline-min.js"></script>
+<!-- endbuild -->
+<!-- build:js -->
 <script src="app.js"></script>
 <script src="config.js"></script>
 <script src="controllers/import.js"></script>
@@ -73,5 +79,6 @@
 <script src="factories/data.js"></script>
 <script src="factories/events.js"></script>
 <script src="factories/parse.js"></script>
+<!-- endbuild -->
 </body>
 </html>

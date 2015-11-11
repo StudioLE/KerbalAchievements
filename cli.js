@@ -6,15 +6,14 @@ var arg = process.argv.slice(2)
 
 // Server
 if(arg[0] == 'server') {
-  if(arg[1] == 'app' || arg[1] === undefined) {
-    sh.echo('Launching app server')
-    sh.exec('http-server app -a localhost -p 1337 -c-1')
+  if(arg[1] == 'src' || arg[1] === undefined) {
+    sh.echo('Launching src server')
+    sh.exec('http-server src -a localhost -p 1337 -c-1')
   }
-}
-// LESS
-else if(arg[0] == 'less') {
-  sh.echo('Converting LESS to CSS')
-  sh.exec('lessc -x app/css/style.less app/css/style.css')
+  else if(arg[1] == 'build') {
+    sh.echo('Launching build server')
+    sh.exec('http-server build -a localhost -p 1337 -c-1')
+  }
 }
 // Invalid
 else {

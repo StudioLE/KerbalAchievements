@@ -27,14 +27,18 @@ If you want to host your own private version or run a local version feel free to
 
 ## Usage
 
-There's a small `cli.js` utility to simplify some of the development commands.
+Run gulp to produce a build from the app source
+```
+gulp
+```
 
-Launch the the node `app` server for development
+There's also small `cli.js` utility to simplify some of the development commands.
+
+Launch a web server of the `src` directory
 ```
 node cli server
 ```
-
-Convert and minify the LESS file to CSS
+Launch a web server of the `build` directory
 ```
-node cli less
+node cli server build
 ```
