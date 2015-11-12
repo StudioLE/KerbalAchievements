@@ -109,23 +109,6 @@ input[type="file"] {
   }
 }
 
-.navbar-brand, .nav>li>a {
-  padding: 70px 40px 30px;
-}
-.nav.navbar-right>li>a {
-  padding-right: 25px;
-  padding-left: 25px;
-}
-
-.navbar-nav:not(.navbar-right)>li>a:before, 
-.navbar-nav>li>a span {
-  display: block;
-  color: @nav_fade;
-  font-size: 34px;
-  line-height: 30px;
-  text-align: center;
-}
-
 .navbar-nav>li>a span {
   font-size: 28px;
 }
@@ -133,28 +116,54 @@ input[type="file"] {
 .navbar-default .navbar-brand {
   color: @nav_tag;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:hover span, &:focus span {
     color: @nav_hover;
   }
 }
 
+.navbar-brand {
+    height: auto;
+}
+
 .navbar-brand span {
   color: @nav_brand;
-  display: block;
   font-size: 28px;
   line-height: 34px;
+}
+
+.navbar-nav>li>a {
   text-align: center;
 }
 
-// Steps counter
-// .nav {
-//   counter-reset: steps-counter;
-// }
+.navbar-nav>li>a span {
+  display: block;
+  color: @nav_fade;
+  font-size: 34px;
+  line-height: 30px;
+}
 
-// .navbar-nav:not(.navbar-right)>li>a:before {
-//   content: counter(steps-counter);
-//   counter-increment: steps-counter;
-// }
+@media (min-width: 768px) {
+  .navbar-brand span {
+    display: block;
+  }
+
+  .navbar-brand, .nav>li>a {
+    padding: 70px 40px 30px;
+  }
+
+  .nav.navbar-right>li>a {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+}
+
+.navbar-toggle {
+  margin-top: 15px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
 
 /*****************************************************************
 *
@@ -247,19 +256,25 @@ dd {
 ******************************************************************/
 
 .foot {
-  padding-bottom: 80px;
+  padding: 70px 0;
   background: @nav_bg;
 
-  .credit {
-    clear: both;
+  .navbar-brand {
+    padding: 0 15px;
+    min-width: 200px;
     display: block;
-    position: relative;
-    top: 23px;
-    left: 60px;
+    float: none;
+
+    &:hover, &:focus, &:hover span, &:focus span {
+      color: @nav_hover;
+    }
+  }
+
+  .credit {
+    font-size: 14px;
   }
 
   .icons {
-    margin-top: 70px;
   }
 
 }
