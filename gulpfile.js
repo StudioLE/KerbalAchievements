@@ -32,6 +32,9 @@ gulp.task('assets', function() {
   // Images
   gulp.src('src/img/*')
   .pipe(gulp.dest(build_path('img')))
+  // Open Sans
+  gulp.src('src/bower_components/moe-font-opensans/fonts/*')
+  .pipe(gulp.dest(build_path('css/fonts')))
   // Font Awesome
   gulp.src('src/bower_components/font-awesome/fonts/*')
   .pipe(gulp.dest(build_path('fonts')))
@@ -55,7 +58,8 @@ gulp.task('css', function() {
 // Concat and minify vendor CSS
 gulp.task('vendor-css', function() {
   gulp.src([
-    'src/bower_components/bootswatch-dist/css/bootstrap.min.css',
+    'src/bower_components/bootstrap/dist/css/bootstrap.min.css',
+    'src/bower_components/moe-font-opensans/fonts.min.css',
     'src/bower_components/font-awesome/css/font-awesome.min.css',
     'src/bower_components/json-formatter/dist/json-formatter.min.css',
     'src/bower_components/TimelineJS3/compiled/css/timeline.css'
