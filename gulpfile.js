@@ -59,6 +59,12 @@ gulp.task('index', function() {
 
 // Copy static assets
 gulp.task('assets', function() {
+  // Top level
+  gulp.src([
+    'src/humans.txt',
+    'src/favicon.ico'
+  ])
+  .pipe(gulp.dest(build_path()))
   // Views
   gulp.src('src/views/*')
   .pipe(gulp.dest(build_path('views')))
@@ -105,7 +111,12 @@ gulp.task('vendor-css', function() {
 
 // Build app JS
 gulp.task('js', function() {
-  gulp.src(['src/app.js', 'src/config.js', 'src/controllers/*.js', 'src/factories/*.js'])
+  gulp.src([
+    'src/app.js',
+    'src/config.js',
+    'src/controllers/*.js',
+    'src/factories/*.js'
+  ])
   .pipe(gp_concat('concat.js'))
   .pipe(gp_rename('app.js'))
   // .pipe(gp_uglify())
