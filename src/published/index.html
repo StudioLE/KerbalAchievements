@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Kerbal Achievements</title>
+<meta charset="utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<!-- build:vendor-css -->
+<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bower_components/moe-font-opensans/fonts.min.css">
+<link rel="stylesheet" href="/bower_components/TimelineJS3/compiled/css/timeline.css">
+<!-- endbuild -->
+<!-- build:css -->
+<link rel="stylesheet/less" href="/css/style.less">
+<script src="/bower_components/less/dist/less.min.js" data-async="true" data-log-level="0"></script>
+</head>
+<!-- endbuild -->
+<style>
+html, body {
+  height:100%;
+  width:100%;
+  padding: 0px;
+  margin: 0px;
+}
+#timeline-embed {
+  margin-top: 0px;
+  height: 100%;
+}
+
+</style>
+<!-- HTML5 shim, for IE6-8 support of HTML elements-->
+<!--if lt IE 9
+script(src='https://html5shim.googlecode.com/svn/trunk/html5.js')
+
+-->
+</head>
+<body>
+<div id="timeline-embed"></div>
+<!-- build:vendor-js -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/TimelineJS3/compiled/js/timeline.js"></script>
+<!-- endbuild -->
+<script>
+function querystring()
+{
+  var vars = [], hash;
+  var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  for(var i = 0; i < hashes.length; i++)
+  {
+    hash = hashes[i].split('=');
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+  }
+  return vars;
+}
+
+var ref = 'welcome' // 'z0Daxn'
+
+if(querystring()[0].match(/^[a-z0-9]{6}$/i)) {
+  ref = querystring()[0]
+}
+
+var timeline_json = {
+  scale: 'cosmological',
+  // events: 'json/z0Daxn.json'
+}
+var timeline_options = {
+  relative_date: false,
+  timenav_height: 500,
+  default_bg_color: 'black',
+  duration: 500
+}
+$(document).ready(function() {
+  $.getJSON('json/' + ref + '.json')
+    .fail(function(jqxhr, textStatus, error) {
+      console.error(error)
+      $('#timeline-embed').html("Error: " + error)
+    }).done(function(json) {
+      timeline_json.events = json
+      window.timeline = new TL.Timeline('timeline-embed', timeline_json, timeline_options)
+    })
+})
+
+</script>
+</body>
+</html>

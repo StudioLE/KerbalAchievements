@@ -25,7 +25,7 @@ function build_path(path) {
  * Format version query string
  */
 function v() {
-  return '?v=' + ver
+  return '?v' + ver
 }
 
 // Bump version
@@ -142,8 +142,42 @@ gulp.task('vendor-js', function() {
   .pipe(gulp.dest(build_path('js')))
 })
 
+// Build published/index.html
+gulp.task('published', function() {
+  // Published index.html
+  gulp.src('src/published/index.html')
+  .pipe(gp_html({
+    'css': '/css/app.css' + v(),
+    'vendor-css': '/css/published-vendor.css' + v(),
+    'vendor-js': '/js/published-vendor.js' + v()
+  }))
+  .pipe(gulp.dest(build_path('published')))
+  // Published vendor CSS
+  gulp.src([
+    'src/bower_components/bootstrap/dist/css/bootstrap.min.css',
+    'src/bower_components/moe-font-opensans/fonts.min.css',
+    'src/bower_components/TimelineJS3/compiled/css/timeline.css'
+  ])
+  .pipe(gp_concat('concat.js'))
+  .pipe(gp_rename('published-vendor.css'))
+  .pipe(gp_minify({keepSpecialComments: 0}))
+  .pipe(gulp.dest(build_path('css')))
+  // Published vendor JS
+  gulp.src([
+    'src/bower_components/jquery/dist/jquery.min.js',
+    'src/bower_components/TimelineJS3/compiled/js/timeline.js'
+    ])
+  .pipe(gp_concat('concat.js'))
+  .pipe(gp_rename('published-vendor.js'))
+  .pipe(gp_uglify())
+  .pipe(gulp.dest(build_path('js')))
+  // Copy JSON
+  gulp.src('src/published/json/*')
+  .pipe(gulp.dest(build_path('published/json')))
+})
+
 // Run build tasks by default
-gulp.task('build', ['index', 'assets', 'css', 'vendor-css', 'js', 'vendor-js'])
+gulp.task('build', ['index', 'assets', 'css', 'vendor-css', 'js', 'vendor-js', 'published'])
 
 // Default task
 gulp.task('default', ['build'])

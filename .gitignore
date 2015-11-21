@@ -7,7 +7,6 @@ node_modules/
 bower_components/
 build/
 sample/
+src/published/json/
 
-*.sh
-dandelion.yml
 quicksave*.sfs

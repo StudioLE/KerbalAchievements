@@ -6,6 +6,9 @@ Find the app at [http://kerbal.studiole.uk](http://kerbal.studiole.uk)
 
 ## Roadmap / To Do
 
+Publish
+- [ ] Publish timeline to CloudFront
+
 UI Overhaul
 - [ ] Re-theme
 - [ ] Home / splash page
