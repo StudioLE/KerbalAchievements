@@ -27,13 +27,20 @@ If you want to host your own private version or run a local version feel free to
 
 ## Usage
 
-Run gulp to produce a build from the app source
-```
-gulp
-```
+A number of development tasks can be performed via gulp and the bundled `cli.js`.
 
-There's also small `cli.js` utility to simplify some of the development commands.
-
+Produce a build from the app source
+```
+gulp build
+```
+Clean the `build` directory 
+```
+gulp clean
+```
+Bump the package version numbers
+```
+gulp bump
+```
 Launch a web server of the `src` directory
 ```
 node cli server
@@ -41,4 +48,12 @@ node cli server
 Launch a web server of the `build` directory
 ```
 node cli server build
+```
+Sync the `build` directory to S3
+```
+node cli sync
+```
+Dry-run of S3 sync
+```
+node cli sync dry
 ```

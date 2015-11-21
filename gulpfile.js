@@ -1,27 +1,60 @@
+// Core modules
+var p = require('path')
+var ver = require('./package.json').version
+
+// Node modules
 var gulp = require('gulp')
-var htmlreplace = require('gulp-html-replace')
+var gp_bump = require('gulp-bump')
+var gp_clean = require('gulp-clean')
+var gp_html = require('gulp-html-replace')
 var gp_concat = require('gulp-concat')
 var gp_rename = require('gulp-rename')
 var gp_uglify = require('gulp-uglify')
 var gp_minify = require('gulp-minify-css')
 var gp_less = require('gulp-less')
-var p = require('path')
 
+/**
+ * Format build directory path
+ */
 function build_path(path) {
   if( ! path) path = ''
   return p.join('build', path)
 }
 
+/**
+ * Format version query string
+ */
+function v() {
+  return '?v=' + ver
+}
+
+// Bump version
+gulp.task('bump', function(){
+  gulp.src(['./bower.json', './package.json'])
+  .pipe(gp_bump({
+    type:'prerelease'
+  }))
+  .pipe(gulp.dest('./'))
+})
+
+// Clean build directory
+ gulp.task('clean', function () {
+  return gulp.src('build', {
+    // read: false
+  })
+  .pipe(gp_clean())
+})
+
 // Build index.html
 gulp.task('index', function() {
   gulp.src('src/index.html')
-    .pipe(htmlreplace({
-      'css': 'css/app.css',
-      'vendor-css': 'css/vendor.css',
-      'js': 'js/app.js',
-      'vendor-js': 'js/vendor.js'
-    }))
-    .pipe(gulp.dest(build_path()))
+  .pipe(gp_html({
+    'css': 'css/app.css' + v(),
+    'vendor-css': 'css/vendor.css' + v(),
+    'js': 'js/app.js' + v(),
+    'vendor-js': 'js/vendor.js' + v()
+  }))
+  .pipe(gulp.dest(build_path()))
 })
 
 // Copy static assets
@@ -43,7 +76,7 @@ gulp.task('assets', function() {
   .pipe(gulp.dest(build_path('css/icons')))
 })
 
-// Concat and minify CSS
+// Build app CSS
 gulp.task('css', function() {
   gulp.src('src/css/style.less')
   .pipe(gp_less({ paths: [
@@ -55,7 +88,7 @@ gulp.task('css', function() {
   .pipe(gulp.dest(build_path('css')))
 })
 
-// Concat and minify vendor CSS
+// Build vendor CSS
 gulp.task('vendor-css', function() {
   gulp.src([
     'src/bower_components/bootstrap/dist/css/bootstrap.min.css',
@@ -70,7 +103,7 @@ gulp.task('vendor-css', function() {
   .pipe(gulp.dest(build_path('css')))
 })
 
-// Concat and minify JS
+// Build app JS
 gulp.task('js', function() {
   gulp.src(['src/app.js', 'src/config.js', 'src/controllers/*.js', 'src/factories/*.js'])
   .pipe(gp_concat('concat.js'))
@@ -79,7 +112,7 @@ gulp.task('js', function() {
   .pipe(gulp.dest(build_path('js')))
 })
 
-// Concat and minify vendor JS
+// Build vendor JS
 gulp.task('vendor-js', function() {
   gulp.src([
     'src/bower_components/jquery/dist/jquery.min.js',
@@ -99,6 +132,7 @@ gulp.task('vendor-js', function() {
 })
 
 // Run build tasks by default
-gulp.task('default', ['index', 'assets', 'css', 'vendor-css', 'js', 'vendor-js'], function(){
+gulp.task('build', ['index', 'assets', 'css', 'vendor-css', 'js', 'vendor-js'])
 
-})
+// Default task
+gulp.task('default', ['build'])

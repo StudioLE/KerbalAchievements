@@ -18,7 +18,7 @@ Behind the scenes this will also call `bower install`.
 Now run the default gulp task to produce an up to date build
 
 ```
-gulp
+gulp build
 ```
 
 Now point your websever to either the `build` or `src` directories.

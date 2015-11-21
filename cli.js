@@ -4,7 +4,7 @@ var sh = require('shelljs')
 // Get command line args
 var arg = process.argv.slice(2)
 
-// Server
+// HTTP Server
 if(arg[0] == 'server') {
   if(arg[1] == 'src' || arg[1] === undefined) {
     sh.echo('Launching src server')
@@ -15,7 +15,18 @@ if(arg[0] == 'server') {
     sh.exec('http-server build -a localhost -p 1337 -c-1')
   }
 }
-// Invalid
+// S3 Sync
+else if(arg[0] == 'sync') {
+  if(arg[1] === undefined) {
+    sh.echo('Syncing to S3 bucket')
+    sh.exec('aws s3 sync build/ s3://kerbal/')
+  }
+  else if(arg[1] == 'dry') {
+    sh.echo('Syncing to S3 bucket --dryrun')
+    sh.exec('aws s3 sync build/ s3://kerbal/ --dryrun')
+  }
+}
+// Invalid Operation
 else {
   console.log('invalid operation %s', arg[0])
 }
