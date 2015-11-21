@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app.review', ['ngRoute'])
+angular.module('app.raw', ['ngRoute'])
 
 /*****************************************************************
 *
@@ -8,18 +8,18 @@ angular.module('app.review', ['ngRoute'])
 *
 ******************************************************************/
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/review', {
-    templateUrl: 'views/review.html',
-    controller: 'ReviewCtrl'
+  $routeProvider.when('/raw', {
+    templateUrl: 'views/raw.html',
+    controller: 'RawCtrl'
   })
 }])
 
 /*****************************************************************
 *
-* ReviewCtrl controlller
+* RawCtrl controlller
 *
 ******************************************************************/
-.controller('ReviewCtrl', function($scope, Data, Events) {
+.controller('RawCtrl', function($scope, Data, Events) {
 
   /**
    * Get data from local storage

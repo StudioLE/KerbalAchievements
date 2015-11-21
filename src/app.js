@@ -13,7 +13,7 @@ angular.module('app', [
   'jsonFormatter',
   'app.config',
   'app.import',
-  'app.review',
+  'app.raw',
   'app.static',
   'app.timeline',
   'app.dataFactory',
